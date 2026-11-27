@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://paulinabojorquez.com/sitemap.xml
