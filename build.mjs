@@ -168,7 +168,6 @@ function win(id, t, body) {
 
 function page(lang) {
   const t = T[lang];
-  const other = T[t.other];
   const url = `${SITE}/${lang}/`;
   const cvButton = CV_URL ? `<a class="btn" href="${CV_URL}" download>${esc(t.download)}</a>` : '';
   const iconOrder = ['about', 'impact', 'experience', 'building', 'writing', 'skills', 'book', 'cv'];
@@ -185,6 +184,7 @@ function page(lang) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>document.documentElement.classList.add('js')</script>
 <title>${esc(t.title)}</title>
 <meta name="description" content="${esc(t.description)}">
 <link rel="canonical" href="${url}">
@@ -256,6 +256,7 @@ ${win('skills', t, `<h3 class="title">${esc(t.skillsTitle)}</h3>
   <ul class="rows" style="margin-top:24px">${t.education.map(([y, n, o]) => `<li><span class="when">${esc(y)}</span><span class="what"><strong>${esc(n)}</strong><span class="desc">${esc(o)}</span></span></li>`).join('')}</ul>`)}
 ${win('book', t, `<h3 class="title">${esc(t.book)}</h3><p class="lede">${esc(t.bookIntro)}</p>
   <iframe class="calendar" data-src="${BOOKING_EMBED}" title="${esc(t.calTitle)}"></iframe>
+  <noscript><iframe class="calendar" src="${BOOKING_EMBED}" title="${esc(t.calTitle)}" loading="lazy"></iframe></noscript>
   <p class="wip"><a href="${BOOKING}" target="_blank" rel="noopener">${esc(t.openBooking)}</a></p>`)}
 ${win('cv', t, `<h3 class="title">cv.pdf</h3>
   ${CV_URL ? `<a class="btn primary" href="${CV_URL}" download>${esc(t.download)}</a>` : `<p class="lede">${esc(t.cvSoon)}</p><a class="btn" href="${LINKEDIN}" target="_blank" rel="noopener">LinkedIn ↗</a>`}`)}
