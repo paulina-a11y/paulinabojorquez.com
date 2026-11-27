@@ -55,8 +55,7 @@ main { flex: 1; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 32
 /* until app.js picks the window from the URL, only About shows */
 .js:not(.ready) .window:not(#about) { display: none; }
 .js .calendar:not([src]) { display: none; }
-noscript .calendar { display: block; }
-.titlebar { display: flex; align-items: center; gap: 12px; padding: 0 4px 0 12px; min-height: 40px; background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 70%, transparent)); color: #FFFFFF; border-bottom: 1px solid var(--edge); }
+.titlebar { display: flex; align-items: center; gap: 12px; padding: 0 4px 0 12px; min-height: 40px; background: var(--accent); background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 70%, transparent)); color: #FFFFFF; border-bottom: 1px solid var(--edge); }
 .titlebar h2 { flex: 1; margin: 0; font-family: var(--mono); font-weight: 600; font-size: 13px; }
 .close { width: 44px; height: 40px; background: transparent; border: 0; cursor: pointer; display: none; align-items: center; justify-content: center; }
 .js .close { display: flex; }

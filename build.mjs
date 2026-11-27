@@ -184,7 +184,11 @@ function page(lang) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>document.documentElement.classList.add('js')</script>
+<script>
+// hide inactive windows from first paint; if app.js never arrives, fall back to showing everything
+document.documentElement.classList.add('js');
+setTimeout(function () { var c = document.documentElement.classList; if (!c.contains('ready')) c.remove('js'); }, 3000);
+</script>
 <title>${esc(t.title)}</title>
 <meta name="description" content="${esc(t.description)}">
 <link rel="canonical" href="${url}">
