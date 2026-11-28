@@ -32,8 +32,10 @@
   const cap = document.getElementById('photo-caption');
   const final = '/img/paulina-lofi.png';
   const frames = [0, 1, 2, 3, 4, 5].map((n) => '/img/load' + n + '.png');
+  // phones and reduced-motion visitors get the final lofi photo straight away, without the animation
+  const animate = !matchMedia('(max-width: 767px)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches;
   let framesLoaded = false;
-  const framesDone = Promise.all(frames.map((src) => new Promise((resolve, reject) => {
+  const framesDone = !animate ? Promise.resolve() : Promise.all(frames.map((src) => new Promise((resolve, reject) => {
     const pre = new Image();
     pre.onload = resolve;
     pre.onerror = reject;
@@ -43,7 +45,7 @@
   const firstPlay = Promise.race([framesDone, new Promise((resolve) => setTimeout(resolve, 2500))]);
   let timer;
   function loadPhoto() {
-    if (!img || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!img || !animate) return;
     firstPlay.then(() => {
       if (!framesLoaded) return;
       clearInterval(timer);

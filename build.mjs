@@ -8,9 +8,11 @@ const LINKEDIN = 'https://www.linkedin.com/in/paulinabojorquez';
 const GITHUB = 'https://github.com/paulina-a11y';
 const BOOKING = 'https://calendar.app.google/Bz1hPw199SUqB7g37';
 const BOOKING_EMBED = 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ18WGOyBQA_z-KNwksOwNZX4sGKR_nFupW4KYzRLCTkdTetZLsrjNsNoH7F3FA-XT7oQO7X44vt?gv=true';
-// Pending decisions: set CV_URL to '/cv/<file>.pdf' once a CV without phone number is in static/cv/.
-const CV_URL = null;
-// The startup's name stays private until Paulina confirms it can be public; set it here when it can.
+// The CV must never include her phone number. When replacing it, re-render static/cv/page-N.webp from the new PDF,
+// update CV_PAGES, and check the PDF text for a phone before committing.
+const CV_URL = '/cv/paulina-bojorquez-cv.pdf';
+const CV_PAGES = 3;
+// The startup stays unnamed on the site.
 const STARTUP_NAME = null;
 
 const posts = [
@@ -41,7 +43,7 @@ const T = {
     impact: [
       ['2.8x', 'Pipeline in two months', 'Fixed CRM attribution and pipeline data first, then ran 30+ ICP/message experiments with scale-or-pivot criteria. Qualified pipeline: MXN 600K → 1.7M in potential MRR.', 'Moffin'],
       ['~100%', 'Proposals out the day of the demo', 'Built a modular pricing model and, with Claude Code and the sales team, prototyped a quoting tool and an AI proposal agent. Down from up to two weeks.', 'Moffin'],
-      ['20+', 'Person team on a LATAM rollout', "Client-facing lead of Abbott's Salesforce field-sales rollout across Latin America, coordinating Asia, LATAM and the U.S.; ran a train-the-trainer program.", 'Deloitte'],
+      ['LATAM', 'Salesforce rollout across Latin America (Abbott, Deloitte)', "Client-facing lead of Abbott's Salesforce field-sales rollout across Latin America, coordinating Asia, LATAM and the U.S.; ran a train-the-trainer program.", 'Deloitte'],
       ['2x', 'MRR at the largest accounts', '~50 accounts including 3 enterprise; the two largest doubled their MRR and one implementation became core platform features.', 'Moffin'],
       ['3x', 'Application volume per analyst', 'Automation and AI tooling.', 'Moffin'],
       ['0 → 30+', 'Clients for a new business line', 'Go-to-market and nationwide operations from zero; doubled sales.', 'Alto Golfo Seafoods']
@@ -49,17 +51,17 @@ const T = {
     expIntro: 'Consulting → operator → founder.',
     experience: [
       ['2026 – now', 'Co-founder', startup.en, 'An agentic platform for independent real estate agents in Mexico.'],
-      ['2025 – 2026', 'Sr Business Analyst → Implementation Lead → Growth Lead', 'Moffin', 'B2B fintech. Three roles in 18 months; led teams of up to 8.'],
-      ['2022 – 2025', 'Independent Consultant & Operator', 'Ensenada', "Alto Golfo Seafoods, GTM advisory, taught Retail Marketing at CETYS, Master's in Social Business."],
-      ['2019 – 2021', 'Senior Consultant', 'Deloitte', 'Product Owner proxy on SAP Commerce and Salesforce programs for AT&T, Telcel and Abbott.'],
-      ['2018 – 2019', 'Innovation Consultant', 'NEORIS', "An e-commerce product from inception to launch inside CEMEX's innovation hub."],
-      ['2015 – 2018', 'Enterprise Technology Analyst', 'Accenture', 'Business–engineering liaison; agile delivery for a major e-commerce launch.']
+      ['2025 – 2026', 'Sr Business Analyst → Implementation Lead → Growth Lead', 'Moffin', 'B2B fintech. Three roles in 18 months; led teams of up to 8.', 'Qualified pipeline 2.8x in two months (MXN 600K → 1.7M potential MRR); two largest accounts doubled MRR; ~100% of proposals out the same day as the demo.'],
+      ['2022 – 2025', 'Independent Consultant & Operator', 'Ensenada', "Alto Golfo Seafoods, GTM advisory, taught Retail Marketing at CETYS, Master's in Social Business.", 'Alto Golfo Seafoods: new business line from zero to 30+ clients; doubled sales.'],
+      ['2019 – 2021', 'Senior Consultant', 'Deloitte', 'Product Owner proxy on SAP Commerce and Salesforce programs for AT&T, Telcel and Abbott.', "Client-facing lead on Abbott's Salesforce field-sales rollout across Latin America; 20+ person team across Asia, LATAM and the U.S.; train-the-trainer program."],
+      ['2018 – 2019', 'Innovation Consultant', 'NEORIS', 'Innovation consulting and B2B commerce solution design.', "Took a new e-commerce product from inception to launch inside CEMEX's innovation hub."],
+      ['2015 – 2018', 'Enterprise Technology Analyst', 'Accenture', 'Requirements, testing and delivery on enterprise programs.', "Business–engineering liaison for McKesson; agile delivery for Soriana's e-commerce launch."]
     ],
     buildingTitle: "What I'm building", buildingIntro: 'Projects, described as what they are.',
     building: [
       ['building', startup.en, 'AI for prospecting, client profiling, property management, scheduling and follow-ups. Soft launch planned for early 2027.'],
       ['prototype', 'Quoting tool + AI proposal agent', 'Built with Claude Code alongside the sales team.'],
-      ['in use', 'AI agents with human review', 'Voice agents for outbound qualification, LLM analysis of call data, paid-media analysis agents.'],
+      ['shipped at Moffin', 'AI agents with human review', 'Voice agents for outbound qualification, LLM analysis of call data, paid-media analysis agents.'],
       ['live', 'paulinabojorquez.com', 'This site, on GitHub + Netlify.']
     ],
     writingIntro: 'Notes on product, GTM and applied AI. Full posts on LinkedIn for now.',
@@ -80,8 +82,8 @@ const T = {
       ['2016', 'CBAP™ preparation program (BABOK® Guide v2.0)', 'Accenture']
     ],
     bookIntro: 'Pick a slot that works for you.', openBooking: 'Open booking page ↗', calTitle: 'Booking calendar',
-    cvSoon: 'A downloadable CV is on its way. In the meantime, LinkedIn has the full history.',
-    wip: 'This site is a work in progress, shipped in public.'
+    cvOpen: 'Open in new tab ↗', cvViewer: 'CV preview', cvEmail: 'Send by email', cvPage: 'CV, page', cvOf: 'of',
+    cvMailSubject: 'CV — Paulina Bojórquez', cvMailBody: "Paulina Bojórquez's CV (Product, GTM & Business Operations):"
   },
   es: {
     htmlLang: 'es', other: 'en',
@@ -100,7 +102,7 @@ const T = {
     impact: [
       ['2.8x', 'Pipeline en dos meses', 'Primero arreglé la atribución y los datos del CRM; luego 30+ experimentos de ICP y mensaje con criterios de escalar o pivotear. Pipeline calificado: MXN 600K → 1.7M en MRR potencial.', 'Moffin'],
       ['~100%', 'Propuestas el mismo día del demo', 'Modelo de precios modular, y con Claude Code y el equipo de ventas, un cotizador y un agente de propuestas. Antes tardaban hasta dos semanas.', 'Moffin'],
-      ['20+', 'Personas en un rollout LATAM', 'Líder frente al cliente del rollout de Salesforce para la fuerza de ventas de Abbott en Latinoamérica, con equipo en Asia, LATAM y EE. UU.; programa train-the-trainer.', 'Deloitte'],
+      ['LATAM', 'Rollout de Salesforce en Latinoamérica (Abbott, Deloitte)', 'Líder frente al cliente del rollout de Salesforce para la fuerza de ventas de Abbott en Latinoamérica, con equipo en Asia, LATAM y EE. UU.; programa train-the-trainer.', 'Deloitte'],
       ['2x', 'MRR en las cuentas más grandes', 'Cartera de ~50 cuentas, 3 enterprise; las dos más grandes duplicaron su MRR y una implementación se volvió funcionalidad core.', 'Moffin'],
       ['3x', 'Volumen por analista', 'Automatización y herramientas de IA para procesar el triple de solicitudes.', 'Moffin'],
       ['0 → 30+', 'Clientes en una línea nueva', 'Go-to-market y operación nacional desde cero; ventas duplicadas.', 'Alto Golfo Seafoods']
@@ -108,17 +110,17 @@ const T = {
     expIntro: 'Consultoría → operación → fundadora.',
     experience: [
       ['2026 – hoy', 'Cofundadora', startup.es, 'Plataforma agéntica para agentes inmobiliarios independientes en México.'],
-      ['2025 – 2026', 'Sr Business Analyst → Implementation Lead → Growth Lead', 'Moffin', 'Fintech B2B. Tres roles en 18 meses; equipos de hasta 8 personas.'],
-      ['2022 – 2025', 'Consultora y operadora independiente', 'Ensenada', 'Alto Golfo Seafoods, asesoría de GTM, profesora de Retail Marketing en CETYS, maestría en Negocios Sociales.'],
-      ['2019 – 2021', 'Senior Consultant', 'Deloitte', 'Product Owner proxy en programas de SAP Commerce y Salesforce para AT&T, Telcel y Abbott.'],
-      ['2018 – 2019', 'Innovation Consultant', 'NEORIS', 'Un producto de e-commerce de la idea al lanzamiento en el hub de innovación de CEMEX.'],
-      ['2015 – 2018', 'Enterprise Technology Analyst', 'Accenture', 'Enlace entre negocio e ingeniería; entrega ágil de un lanzamiento grande de e-commerce.']
+      ['2025 – 2026', 'Sr Business Analyst → Implementation Lead → Growth Lead', 'Moffin', 'Fintech B2B. Tres roles en 18 meses; equipos de hasta 8 personas.', 'Pipeline calificado 2.8x en dos meses (MXN 600K → 1.7M en MRR potencial); las dos cuentas más grandes duplicaron su MRR; ~100% de las propuestas salen el mismo día del demo.'],
+      ['2022 – 2025', 'Consultora y operadora independiente', 'Ensenada', 'Alto Golfo Seafoods, asesoría de GTM, profesora de Retail Marketing en CETYS, maestría en Negocios Sociales.', 'Alto Golfo Seafoods: línea de negocio nueva de cero a 30+ clientes; ventas duplicadas.'],
+      ['2019 – 2021', 'Senior Consultant', 'Deloitte', 'Product Owner proxy en programas de SAP Commerce y Salesforce para AT&T, Telcel y Abbott.', 'Líder frente al cliente del rollout de Salesforce para la fuerza de ventas de Abbott en Latinoamérica; equipo de 20+ personas en Asia, LATAM y EE. UU.; programa train-the-trainer.'],
+      ['2018 – 2019', 'Innovation Consultant', 'NEORIS', 'Consultoría de innovación y diseño de soluciones de comercio B2B.', 'Llevé un producto nuevo de e-commerce de la idea al lanzamiento en el hub de innovación de CEMEX.'],
+      ['2015 – 2018', 'Enterprise Technology Analyst', 'Accenture', 'Requerimientos, pruebas y entrega en programas enterprise.', 'Enlace entre negocio e ingeniería para McKesson; entrega ágil del lanzamiento de e-commerce de Soriana.']
     ],
     buildingTitle: 'Lo que estoy construyendo', buildingIntro: 'Proyectos, contados como lo que son.',
     building: [
       ['en curso', startup.es, 'IA para prospección, perfilamiento de clientes, gestión de propiedades, citas y seguimiento. Soft launch a inicios de 2027.'],
       ['prototipo', 'Cotizador + agente de propuestas', 'Hechos con Claude Code junto al equipo de ventas.'],
-      ['en uso', 'Agentes de IA con revisión humana', 'Agentes de voz para calificación outbound, análisis de llamadas con LLM, agentes de análisis de pauta.'],
+      ['en producción en Moffin', 'Agentes de IA con revisión humana', 'Agentes de voz para calificación outbound, análisis de llamadas con LLM, agentes de análisis de pauta.'],
       ['en vivo', 'paulinabojorquez.com', 'Este sitio, en GitHub + Netlify.']
     ],
     writingIntro: 'Notas de producto, GTM e IA aplicada. Por ahora, los posts completos viven en LinkedIn.',
@@ -139,8 +141,8 @@ const T = {
       ['2016', 'Programa de preparación CBAP™ (BABOK® Guide v2.0)', 'Accenture']
     ],
     bookIntro: 'Escoge el horario que te acomode.', openBooking: 'Abrir agenda ↗', calTitle: 'Agenda de citas',
-    cvSoon: 'El CV descargable viene en camino. Mientras, en LinkedIn está la historia completa.',
-    wip: 'Este sitio está en construcción, y se construye en público.'
+    cvOpen: 'Abrir en otra pestaña ↗', cvViewer: 'Vista previa del CV', cvEmail: 'Enviar por correo', cvPage: 'CV, página', cvOf: 'de',
+    cvMailSubject: 'CV — Paulina Bojórquez', cvMailBody: 'CV de Paulina Bojórquez (Producto, GTM y operaciones):'
   }
 };
 
@@ -169,7 +171,7 @@ function win(id, t, body) {
 function page(lang) {
   const t = T[lang];
   const url = `${SITE}/${lang}/`;
-  const cvButton = CV_URL ? `<a class="btn" href="${CV_URL}" download>${esc(t.download)}</a>` : '';
+  const cvMail = `mailto:?subject=${encodeURIComponent(t.cvMailSubject)}&body=${encodeURIComponent(`${t.cvMailBody}\n${SITE}${CV_URL}`)}`;
   const iconOrder = ['about', 'impact', 'experience', 'building', 'writing', 'skills', 'book', 'cv'];
   const person = {
     '@context': 'https://schema.org', '@type': 'Person', name: 'Paulina Bojórquez', url: SITE,
@@ -242,15 +244,15 @@ ${win('about', t, `<div class="about">
       <span class="where">${esc(t.where)}</span>
       <div class="buttons">
         <a class="btn primary" href="mailto:${EMAIL}">${esc(t.contact)}</a>
+        <a class="btn" href="${CV_URL}" download>${esc(t.download)}</a>
         <a class="btn" href="#book" data-open="book">${esc(t.book)}</a>
-        ${cvButton}
       </div>
     </div>
   </div>`)}
 ${win('impact', t, `<h3 class="title">${esc(t.impactTitle)}</h3>
   <div class="cards">${t.impact.map(([m, h, p, w]) => `<article class="card"><span class="metric">${esc(m)}</span><h4>${esc(h)}</h4><p>${esc(p)}</p><span class="where">${esc(w)}</span></article>`).join('')}</div>`)}
 ${win('experience', t, `<h3 class="title">${esc(t.nav.experience)}</h3><p class="lede">${esc(t.expIntro)}</p>
-  <ol class="rows">${t.experience.map(([y, r, o, d]) => `<li><span class="when">${esc(y)}</span><span class="what"><strong>${esc(r)} <span class="org">· ${esc(o)}</span></strong><span class="desc">${esc(d)}</span></span></li>`).join('')}</ol>`)}
+  <ol class="rows">${t.experience.map(([y, r, o, d, out]) => `<li><span class="when">${esc(y)}</span><span class="what"><strong>${esc(r)} <span class="org">· ${esc(o)}</span></strong><span class="desc">${esc(d)}</span>${out ? `<span class="outcome">${esc(out)}</span>` : ''}</span></li>`).join('')}</ol>`)}
 ${win('building', t, `<h3 class="title">${esc(t.buildingTitle)}</h3><p class="lede">${esc(t.buildingIntro)}</p>
   <ul class="rows">${t.building.map(([s, n, d]) => `<li><span class="when">${esc(s)}</span><span class="what"><strong>${esc(n)}</strong><span class="desc">${esc(d)}</span></span></li>`).join('')}</ul>`)}
 ${win('writing', t, `<h3 class="title">${esc(t.nav.writing)}</h3><p class="lede">${esc(t.writingIntro)}</p>
@@ -262,12 +264,15 @@ ${win('book', t, `<h3 class="title">${esc(t.book)}</h3><p class="lede">${esc(t.b
   <iframe class="calendar" data-src="${BOOKING_EMBED}" title="${esc(t.calTitle)}"></iframe>
   <noscript><iframe class="calendar" src="${BOOKING_EMBED}" title="${esc(t.calTitle)}" loading="lazy"></iframe></noscript>
   <p class="wip"><a href="${BOOKING}" target="_blank" rel="noopener">${esc(t.openBooking)}</a></p>`)}
-${win('cv', t, `<h3 class="title">cv.pdf</h3>
-  ${CV_URL ? `<a class="btn primary" href="${CV_URL}" download>${esc(t.download)}</a>` : `<p class="lede">${esc(t.cvSoon)}</p><a class="btn" href="${LINKEDIN}" target="_blank" rel="noopener">LinkedIn ↗</a>`}`)}
+${win('cv', t, `<div class="toolbar">
+    <a class="tool" href="${CV_URL}" download>⬇ ${esc(t.download)}</a>
+    <a class="tool" href="${esc(cvMail)}">✉ ${esc(t.cvEmail)}</a>
+    <a class="tool" href="${CV_URL}" target="_blank" rel="noopener">${esc(t.cvOpen)}</a>
+  </div>
+  <div class="viewer" tabindex="0" role="region" aria-label="${esc(t.cvViewer)}">${Array.from({ length: CV_PAGES }, (_, i) => `<img class="page" src="/cv/page-${i + 1}.webp" alt="${esc(`${t.cvPage} ${i + 1} ${t.cvOf} ${CV_PAGES}`)}" width="1224" height="1584" loading="lazy">`).join('')}</div>`)}
   </div>
 </main>
 <footer>
-  <span>${esc(t.wip)}</span>
   <nav aria-label="Contact"><a href="mailto:${EMAIL}">email</a><a href="${LINKEDIN}" target="_blank" rel="noopener">linkedin</a><a href="${GITHUB}" target="_blank" rel="noopener">github</a><a href="/${t.other}/" hreflang="${t.other}">${t.other === 'es' ? 'Español' : 'English'}</a></nav>
 </footer>
 <script src="/app.js"></script>
