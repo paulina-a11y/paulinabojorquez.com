@@ -229,7 +229,7 @@ ${iconOrder.map((id) => `    <a class="icon" href="#${id}" data-open="${id}">${I
     <p class="hint" hidden>${esc(t.hint)}</p>
 ${win('about', t, `<div class="about">
     <figure class="photo">
-      <button id="replay" type="button" aria-label="${esc(t.replay)}"><img id="photo" class="bevel" src="/img/paulina.jpg" alt="Paulina Bojórquez" width="168" height="168"></button>
+      <button id="replay" type="button" aria-label="${esc(t.replay)}"><img id="photo" class="bevel" src="/img/paulina-lofi.png" alt="Paulina Bojórquez" width="168" height="168"></button>
       <div class="progress" aria-hidden="true"><div></div></div>
       <figcaption id="photo-caption" data-loading="${esc(t.loading)}">paulina.jpg</figcaption>
     </figure>

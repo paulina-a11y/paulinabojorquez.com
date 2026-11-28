@@ -30,7 +30,7 @@
   const img = document.getElementById('photo');
   const bar = document.querySelector('.progress div');
   const cap = document.getElementById('photo-caption');
-  const final = '/img/paulina.jpg';
+  const final = '/img/paulina-lofi.png';
   const frames = [0, 1, 2, 3, 4, 5].map((n) => '/img/load' + n + '.png');
   let framesLoaded = false;
   const framesDone = Promise.all(frames.map((src) => new Promise((resolve, reject) => {
@@ -51,7 +51,6 @@
       const tick = () => {
         const pct = Math.round(step / 6 * 100);
         img.src = step < 6 ? frames[step] : final;
-        img.classList.toggle('pixel', step < 6);
         bar.style.width = pct + '%';
         cap.textContent = step < 6 ? cap.dataset.loading + ' ' + pct + '%' : 'paulina.jpg';
         if (step >= 6) clearInterval(timer);
